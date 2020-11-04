@@ -5,36 +5,53 @@ import '../app.dart';
 import '../widgets/color_sample.dart';
 import '../widgets/product_feature.dart';
 
-class LampScreen extends StatelessWidget {
+class LampScreen extends StatelessWidget            // LampScreen(), _ShoppingCart(), _AddToCartButton(), _LampPreview(), _ColorList(), _Photo(),
+{                                                   // _LampInformation(), _Features(), _Title(), _Description(), _Price().
   final Lamp lamp;
-  LampScreen({@required this.lamp});
+  LampScreen({ @required this.lamp });
 
   @override
-  Widget build(BuildContext context) {
-    return Provider<Lamp>.value(
+  Widget build(BuildContext context) 
+  {
+    return Provider<Lamp>.value( 
       value: lamp,
-      child: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Column(
-                children: [
+
+      child: Scaffold
+      (
+        body: SafeArea
+        (
+          child: Stack
+          (
+            children: 
+            [
+              Column
+              (
+                children: 
+                [
                   Expanded(flex: 5, child: _LampPreview()),
                   Expanded(flex: 6, child: _LampInformation()),
                 ],
               ),
-              Align(
+
+              Align                                                           // Back Button
+              (
                 alignment: Alignment.topLeft,
-                child: Padding(
+
+                child: Padding
+                (
                   padding: const EdgeInsets.all(8.0),
                   child: BackButton(),
                 ),
               ),
-              Align(
+
+              Align                                                           // Shopping Cart
+              (
                 alignment: Alignment.topRight,
                 child: _ShoppingCart(),
               ),
-              Align(
+
+              Align                                                           // Add to Cart button.
+              (
                 alignment: Alignment.bottomRight,
                 child: _AddToCartButton(),
               )
@@ -46,31 +63,45 @@ class LampScreen extends StatelessWidget {
   }
 }
 
-class _ShoppingCart extends StatelessWidget {
+class _ShoppingCart extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) 
+  {
+    return Container
+    (
       width: 60,
       height: 60,
-      decoration: BoxDecoration(
+
+      decoration: BoxDecoration
+      (
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30), ),
       ),
+
       padding: EdgeInsets.all(16),
-      child: Stack(
-        children: [
-          Align(
+
+      child: Stack
+      (
+        children: 
+        [
+          Align
+          (
             alignment: Alignment.center,
             child: Icon(Icons.shopping_cart),
           ),
-          Align(
+
+          Align
+          (
             alignment: Alignment.topRight,
-            child: Container(
+
+            child: Container
+            (
               width: 9,
               height: 9,
-              decoration: BoxDecoration(
+
+              decoration: BoxDecoration
+              (
                 shape: BoxShape.circle,
                 color: Colors.amber,
                 border: Border.all(width: 1, color: Colors.white),
@@ -83,44 +114,54 @@ class _ShoppingCart extends StatelessWidget {
   }
 }
 
-class _AddToCartButton extends StatelessWidget {
+class _AddToCartButton extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) 
+  {
+    return Container
+    (
       width: 140,
       height: 60,
-      decoration: BoxDecoration(
+
+      decoration: BoxDecoration
+      (
         color: Colors.amber,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-        ),
+
+        borderRadius: BorderRadius.only( topLeft: Radius.circular(30), ),
       ),
-      child: Center(
-        child: Text(
+
+      child: Center
+      (
+        child: Text
+        (
           'Add to Cart',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, /* Add More */),
         ),
       ),
     );
   }
 }
 
-class _LampPreview extends StatelessWidget {
+class _LampPreview extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
+  Widget build(BuildContext context) 
+  {
+    return Container
+    (
+      decoration: BoxDecoration
+      (
         color: Colors.amber,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-        ),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30), ),
       ),
-      child: Column(
+
+      child: Column
+      (
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        
+        children: 
+        [
           Expanded(flex: 3, child: _Photo()),
           Expanded(flex: 1, child: _ColorList()),
         ],
@@ -129,12 +170,17 @@ class _LampPreview extends StatelessWidget {
   }
 }
 
-class _ColorList extends StatelessWidget {
+class _ColorList extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) 
+  {
+    return Row
+    (
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+
+      children: 
+      [
         ColorSample(color: Colors.white, colorName: 'White'),
         SizedBox(width: 12),
         ColorSample(color: Colors.amber, colorName: 'Yellow', selected: true),
@@ -145,23 +191,32 @@ class _ColorList extends StatelessWidget {
   }
 }
 
-class _Photo extends StatelessWidget {
+class _Photo extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     // Get the lamp
     final Lamp lamp = Provider.of<Lamp>(context);
     return Image.asset(lamp.photo);
   }
 }
 
-class _LampInformation extends StatelessWidget {
+class _LampInformation extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) 
+  {
+    return Container
+    (
       padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
-      child: Column(
+
+      child: Column
+      (
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        
+        children: 
+        [
           _Title(),
           SizedBox(height: 4),
           _Description(),
@@ -175,86 +230,90 @@ class _LampInformation extends StatelessWidget {
   }
 }
 
-class _Features extends StatelessWidget {
+class _Features extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     final Lamp lamp = Provider.of<Lamp>(context);
-    return Row(
+
+    return Row
+    (
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+
+      children: 
+      [
         for (var f in lamp.features)
-          ProductFeature(
-            icon: f.icon,
-            units: f.units,
-            value: f.value,
-          )
+          ProductFeature (icon: f.icon, units: "20"/*f.units*/, value: f.value, /* Add More */)
       ],
     );
   }
 }
 
-class _Title extends StatelessWidget {
+class _Title extends StatelessWidget                                                        // Data container for all the elements that conform the Lamp's title.
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     final Lamp lamp = Provider.of<Lamp>(context);
-    return Row(
-      children: [
-        Text(
+
+    return Row
+    (
+      children: 
+      [
+        Text
+        (
           lamp.name,
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w800,
-            fontSize: 22,
-          ),
+          style: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.w800, fontSize: 22, /* Add More */),
         ),
+
         SizedBox(width: 8),
-        Text(
+
+        Text
+        (
           'lamp',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 22,
-          ),
+          style: TextStyle(fontFamily: 'Montserrat', fontSize: 22, /* Add More */),
         ),
+
         Spacer(),
-        FloatingActionButton(
+
+        FloatingActionButton
+        (
           mini: true,
           onPressed: () {},
-          child: Icon(
-            Icons.favorite,
-            color: Colors.white,
-            size: 20,
-          ),
+          child: Icon(Icons.favorite, color: Colors.white, size: 20, /* Add More */),
         ),
       ],
     );
   }
 }
 
-class _Description extends StatelessWidget {
+class _Description extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     final Lamp lamp = Provider.of<Lamp>(context);
-    return Text(
+
+    return Text
+    (
       lamp.description,
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.grey,
-      ),
+      style: TextStyle( fontSize: 12, color: Colors.grey, /* Add More */),
     );
   }
 }
 
-class _Price extends StatelessWidget {
+class _Price extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     final Lamp lamp = Provider.of<Lamp>(context);
-    return Text(
+    
+    return Text
+    (
       '\$${lamp.price}',
-      style: TextStyle(
-        fontSize: 20,
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.w800,
-      ),
+      style: TextStyle(fontSize: 20, fontFamily: 'Montserrat', fontWeight: FontWeight.w800, /* Add More */),
     );
   }
 }
