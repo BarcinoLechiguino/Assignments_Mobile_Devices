@@ -63,7 +63,7 @@ final melodiLamp = Lamp
     Feature(icon: 'plug', value: 1.6, units: 'm'),
   ],
   
-  photo: 'assets/lamp_photo.png',
+  photo: 'assets/sushi_photo.png',
 );
 
 // Lamp example II

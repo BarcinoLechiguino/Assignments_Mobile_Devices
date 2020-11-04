@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../app.dart';
@@ -28,33 +29,69 @@ class LampScreen extends StatelessWidget            // LampScreen(), _ShoppingCa
               (
                 children: 
                 [
-                  Expanded(flex: 5, child: _LampPreview()),
-                  Expanded(flex: 6, child: _LampInformation()),
+                  Expanded(flex: 3, child: _BottomPreview()),
                 ],
               ),
 
+              Column
+              (
+
+                children: 
+                [
+                  Expanded(flex: 7, child: _MidlePreview()),
+                  Expanded(flex: 1, child: Container()),
+                  
+                  Row
+                  (
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                    children:
+                    [
+                      _Price(),
+                      _AddToCart(),
+                      //Expanded(flex: 3, child: _Price()),
+                      //Expanded(flex: 4, child: _AddToCart()),
+                    ],
+                  ),
+                  
+                  Expanded(flex: 1, child: Container()),
+              
+                ],
+              ),
+
+              Column
+              (
+                
+                children: 
+                [
+                  Expanded(flex: 4, child: _SushiPreview()),
+                  Expanded(flex: 5, child: _SushiInformation()),
+                ],
+              ),
+
+              
+              
               Align                                                           // Back Button
               (
                 alignment: Alignment.topLeft,
-
+                //back button
                 child: Padding
                 (
                   padding: const EdgeInsets.all(8.0),
-                  child: BackButton(),
+                  child: _BackButton(),
                 ),
               ),
 
               Align                                                           // Shopping Cart
               (
                 alignment: Alignment.topRight,
-                child: _ShoppingCart(),
-              ),
 
-              Align                                                           // Add to Cart button.
-              (
-                alignment: Alignment.bottomRight,
-                child: _AddToCartButton(),
-              )
+                child: Padding
+                (
+                  padding: const EdgeInsets.all(8.0),
+                  child: _LikeButton(),
+                ),
+              ),
             ],
           ),
         ),
@@ -63,87 +100,7 @@ class LampScreen extends StatelessWidget            // LampScreen(), _ShoppingCa
   }
 }
 
-class _ShoppingCart extends StatelessWidget 
-{
-  @override
-  Widget build(BuildContext context) 
-  {
-    return Container
-    (
-      width: 60,
-      height: 60,
-
-      decoration: BoxDecoration
-      (
-        color: Colors.white,
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30), ),
-      ),
-
-      padding: EdgeInsets.all(16),
-
-      child: Stack
-      (
-        children: 
-        [
-          Align
-          (
-            alignment: Alignment.center,
-            child: Icon(Icons.shopping_cart),
-          ),
-
-          Align
-          (
-            alignment: Alignment.topRight,
-
-            child: Container
-            (
-              width: 9,
-              height: 9,
-
-              decoration: BoxDecoration
-              (
-                shape: BoxShape.circle,
-                color: Colors.amber,
-                border: Border.all(width: 1, color: Colors.white),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _AddToCartButton extends StatelessWidget 
-{
-  @override
-  Widget build(BuildContext context) 
-  {
-    return Container
-    (
-      width: 140,
-      height: 60,
-
-      decoration: BoxDecoration
-      (
-        color: Colors.amber,
-
-        borderRadius: BorderRadius.only( topLeft: Radius.circular(30), ),
-      ),
-
-      child: Center
-      (
-        child: Text
-        (
-          'Add to Cart',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, /* Add More */),
-        ),
-      ),
-    );
-  }
-}
-
-class _LampPreview extends StatelessWidget 
+class _SushiPreview extends StatelessWidget 
 {
   @override
   Widget build(BuildContext context) 
@@ -152,8 +109,8 @@ class _LampPreview extends StatelessWidget
     (
       decoration: BoxDecoration
       (
-        color: Colors.amber,
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30), ),
+        color: Color.fromRGBO(24,29,45,1),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
       ),
 
       child: Column
@@ -163,30 +120,60 @@ class _LampPreview extends StatelessWidget
         children: 
         [
           Expanded(flex: 3, child: _Photo()),
-          Expanded(flex: 1, child: _ColorList()),
         ],
       ),
     );
   }
 }
 
-class _ColorList extends StatelessWidget 
+class _MidlePreview extends StatelessWidget 
 {
   @override
   Widget build(BuildContext context) 
   {
-    return Row
+    return Container
     (
-      mainAxisAlignment: MainAxisAlignment.center,
+      decoration: BoxDecoration
+      (
+        color: Color.fromRGBO(29,35,53,1),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
+      ),
 
-      children: 
-      [
-        ColorSample(color: Colors.white, colorName: 'White'),
-        SizedBox(width: 12),
-        ColorSample(color: Colors.amber, colorName: 'Yellow', selected: true),
-        SizedBox(width: 12),
-        ColorSample(color: Colors.orange, colorName: 'orange'),
-      ],
+      // child: Column
+      // (
+      //   crossAxisAlignment: CrossAxisAlignment.stretch,
+        
+      //   children: 
+      //   [
+      //     Expanded(flex: 3, child: _Photo()),
+      //   ],
+      // ),
+    );
+  }
+}
+
+class _BottomPreview extends StatelessWidget 
+{
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Container
+    (
+      decoration: BoxDecoration
+      (
+        color: Color.fromRGBO(24,29,45,1),
+        //borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
+      ),
+
+      // child: Column
+      // (
+      //   crossAxisAlignment: CrossAxisAlignment.stretch,
+        
+      //   children: 
+      //   [
+      //     Expanded(flex: 3, child: _Photo()),
+      //   ],
+      // ),
     );
   }
 }
@@ -202,7 +189,7 @@ class _Photo extends StatelessWidget
   }
 }
 
-class _LampInformation extends StatelessWidget 
+class _SushiInformation extends StatelessWidget 
 {
   @override
   Widget build(BuildContext context) 
@@ -294,9 +281,10 @@ class _Description extends StatelessWidget
   Widget build(BuildContext context) 
   {
     final Lamp lamp = Provider.of<Lamp>(context);
-
+      
     return Text
     (
+      
       lamp.description,
       style: TextStyle( fontSize: 12, color: Colors.grey, /* Add More */),
     );
@@ -316,4 +304,65 @@ class _Price extends StatelessWidget
       style: TextStyle(fontSize: 20, fontFamily: 'Montserrat', fontWeight: FontWeight.w800, /* Add More */),
     );
   }
+}
+
+//Buttons
+class _LikeButton extends StatelessWidget 
+{
+  @override
+  Widget build(BuildContext context) 
+  {
+    return FloatingActionButton
+    (
+          shape: RoundedRectangleBorder
+          (
+            borderRadius: BorderRadius.circular(15),
+            side: BorderSide(color: Color.fromRGBO(33,40,61, 1))
+          ),
+          backgroundColor: Color.fromRGBO(29,35,53, 1),
+          mini: true,
+          onPressed: () {},
+          child: Icon(Icons.favorite, color: Colors.white, size: 20, /* Add More */),
+    );
+  }
+}
+
+class _BackButton extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+    return FloatingActionButton
+    (
+          shape: RoundedRectangleBorder
+          (
+            borderRadius: BorderRadius.circular(15),
+            side: BorderSide(color: Color.fromRGBO(33,40,61, 1))
+          ),
+          backgroundColor: Color.fromRGBO(29,35,53, 1),
+          mini: true,
+          onPressed: () {},
+          child: Icon(Icons.arrow_back, color: Colors.white, size: 20, /* Add More */),
+    );
+  }
+}
+
+class _AddToCart extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+    return FloatingActionButton.extended
+    (
+          onPressed: () {},
+          //icon: Icon(Icons.save),
+          label: Text("Add To Cart"),
+          shape: RoundedRectangleBorder
+          (
+            borderRadius: BorderRadius.circular(15),
+          ),
+    );
+  }
+
+
 }
