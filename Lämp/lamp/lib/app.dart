@@ -2,8 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'screens/lamp_screen.dart';
 
-// Model
+// View
+class App extends StatelessWidget 
+{
+  @override
+  Widget build(BuildContext context) 
+  {
+    return MaterialApp
+    (
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData
+      (
+        primarySwatch: Colors.amber,
+      ),
+      home: LampScreen(lamp: melodiLamp),
+    );
+  }
+}
 
+// Model
 class Feature {
   final String icon;
   final num value;
@@ -55,19 +73,3 @@ final blablaLamp = Lamp(
   ],
   photo: '',
 );
-
-// View
-
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: LampScreen(lamp: melodiLamp),
-    );
-  }
-}
