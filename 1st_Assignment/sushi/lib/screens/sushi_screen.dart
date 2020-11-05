@@ -19,6 +19,8 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
 
       child: Scaffold
       (
+        //appBar: AppBar(title: Text("Sushi")),
+
         body: SafeArea
         (
           child: Stack
@@ -35,27 +37,28 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
 
               Column
               (
-
                 children: 
                 [
                   Expanded(flex: 7, child: _MiddlePreview()),
-                  Expanded(flex: 1, child: Container()),
-                  
+                  //Expanded(flex: 1, child: Container()),
+
                   Row
                   (
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                     children:
                     [
-                      _Price(),
-                      _AddToCart(),
-                      //Expanded(flex: 3, child: _Price()),
-                      //Expanded(flex: 4, child: _AddToCart()),
+                      Container(
+                        //alignment: Alignment.centerLeft,
+                        child: _Price(),
+                      ),
+
+                      Container(
+                        child: _AddToCart(),
+                      ),
                     ],
                   ),
                   
-                  Expanded(flex: 1, child: Container()),
-              
+                  Expanded(flex: 1, child: Container()),              
                 ],
               ),
 
@@ -64,6 +67,7 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
                 
                 children: 
                 [
+                  Expanded(flex: 1, child: Container(color: Color.fromARGB(255, 24, 29, 45))),
                   Expanded(flex: 4, child: _SushiPreview()),
                   Expanded(flex: 5, child: _SushiInformation()),
                 ],
@@ -77,7 +81,7 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
                 //back button
                 child: Padding
                 (
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(35.0, 40.0, 20.0, 20.0),
                   child: _BackButton(),
                 ),
               ),
@@ -88,7 +92,7 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
 
                 child: Padding
                 (
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(25.0, 40.0, 35.0, 20.0),
                   child: _LikeButton(),
                 ),
               ),
@@ -105,22 +109,46 @@ class _SushiPreview extends StatelessWidget
   @override
   Widget build(BuildContext context) 
   {
+    final Sushi sushi = Provider.of<Sushi>(context);
+
     return Container
-    (
+    ( 
+      //padding: EdgeInsets.only(top: 0),
+      
       decoration: BoxDecoration
       (
-        color: Color.fromRGBO(24,29,45,1),
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
+        color: Color.fromARGB(255, 24, 29, 45),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(55),bottomRight: Radius.circular(55) ),
       ),
 
       child: Column
       (
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        
+
         children: 
-        [
-          Expanded(flex: 1 , child: Text("Sake Roll", style: TextStyle(color: Colors.white, fontFamily: "Poppins", fontWeight: FontWeight.w500, fontSize: 35))),
-          Expanded(flex: 4, child: _Photo()),
+        [ 
+          Expanded
+          (
+            flex: 1 , 
+            child: Text(
+              sushi.name, 
+              style: TextStyle
+              (
+                color: Colors.white,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.w400, 
+                fontSize: 32
+              ),
+
+              textAlign: TextAlign.center,
+            )
+          ),
+          
+          Expanded
+          (
+            flex: 4, 
+            child: _Photo()
+          ),
         ],
       ),
     );
@@ -134,21 +162,10 @@ class _MiddlePreview extends StatelessWidget
   {
     return Container
     (
-      decoration: BoxDecoration
-      (
-        color: Color.fromRGBO(29,35,53,1),
-        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 29, 35, 53),
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(55),bottomRight: Radius.circular(55), ),
       ),
-
-      // child: Column
-      // (
-      //   crossAxisAlignment: CrossAxisAlignment.stretch,
-        
-      //   children: 
-      //   [
-      //     Expanded(flex: 3, child: _Photo()),
-      //   ],
-      // ),
     );
   }
 }
@@ -159,22 +176,11 @@ class _BottomPreview extends StatelessWidget
   Widget build(BuildContext context) 
   {
     return Container
-    (
-      decoration: BoxDecoration
-      (
+    ( 
+      decoration: BoxDecoration(
         color: Color.fromRGBO(24,29,45,1),
         //borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
       ),
-
-      // child: Column
-      // (
-      //   crossAxisAlignment: CrossAxisAlignment.stretch,
-        
-      //   children: 
-      //   [
-      //     Expanded(flex: 3, child: _Photo()),
-      //   ],
-      // ),
     );
   }
 }
@@ -194,10 +200,11 @@ class _SushiInformation extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) 
-  {
+  { 
     return Container
     (
-      padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
+      //padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
+      padding: EdgeInsets.fromLTRB(25, 80, 25, 25),
 
       child: Column
       (
@@ -206,10 +213,21 @@ class _SushiInformation extends StatelessWidget
         children: 
         [
           _Features(),
-          _Title(),
+
+          Container(
+            padding: EdgeInsets.only(top: 40.0),
+            child: _Title(),
+          ),
+
           SizedBox(height: 4),
-          _Description(),
+          
+          Container(
+            padding: EdgeInsets.only(top: 5.0),
+            child: _Description(),
+          ),
+
           SizedBox(height: 16),
+
           Spacer(),
           //_Price(),
         ],
@@ -232,7 +250,7 @@ class _Features extends StatelessWidget
       children: 
       [
         for (var f in sushi.features)
-          ProductFeature (icon: f.icon, units: f.units, value: f.value, /* Add More */)
+          ProductFeature (icon: f.icon, units: f.units, value: f.value, )
       ],
     );
   }
@@ -242,43 +260,11 @@ class _Title extends StatelessWidget                                            
 {
   @override
   Widget build(BuildContext context) 
-  {
-    final Sushi sushi = Provider.of<Sushi>(context);
-
-    return Row
-    (
-      children: 
-      [ 
-        Text
-        (
-          'Description',
-          style: TextStyle(fontFamily: 'Poppins', color: Colors.grey, fontWeight: FontWeight.w800, fontSize: 22, /* Add More */),
-        ),
-
-        // Text
-        // (
-        //   sushi.name,
-        //   style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w800, fontSize: 22, /* Add More */),
-        // ),
-
-        //SizedBox(width: 8),
-
-        // Text
-        // (
-        //   'sushi',
-        //   style: TextStyle(fontFamily: 'Poppins', fontSize: 22, /* Add More */),
-        // ),
-
-        // Spacer(),
-
-        // FloatingActionButton
-        // (
-        //   mini: true,
-        //   onPressed: () {},
-        //   child: Icon(Icons.favorite, color: Colors.white, size: 20, /* Add More */),
-        // ),
-      ],
-    );
+  { 
+    return Text(
+      'Description',
+      style: TextStyle(fontFamily: 'Poppins', color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22, /* Add More */),
+      );
   }
 }
 
@@ -289,16 +275,9 @@ class _Description extends StatelessWidget
   {
     final Sushi sushi = Provider.of<Sushi>(context);
 
-    // Text
-    // (
-    //   "Description",
-    //   style: TextStyle(fontFamily: 'Poppins', fontSize: 24, color: Colors.white, /* Add More */),
-    // );
-
-    return Text
-    (
-      sushi.description,
-      style: TextStyle( fontFamily: 'Poppins', fontSize: 12, color: Colors.grey, /* Add More */),
+    return Text(
+        sushi.description,
+        style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: Color.fromARGB(255, 142, 156, 182), fontWeight: FontWeight.w300,)
     );
   }
 }
@@ -310,10 +289,9 @@ class _Price extends StatelessWidget
   {
     final Sushi sushi = Provider.of<Sushi>(context);
     
-    return Text
-    (
+    return Text(
       '\$${sushi.price}',
-      style: TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w800, /* Add More */),
+      style: TextStyle(fontSize: 30.0, color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400, ),
     );
   }
 }
@@ -326,15 +304,15 @@ class _LikeButton extends StatelessWidget
   {
     return FloatingActionButton
     (
-          shape: RoundedRectangleBorder
-          (
-            borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: Color.fromRGBO(33,40,61, 1))
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
           ),
-          backgroundColor: Color.fromRGBO(29,35,53, 1),
+
+          backgroundColor: Color.fromARGB(255, 29, 35, 53),
           mini: false,
           onPressed: () {},
-          child: Icon(Icons.favorite_outline_sharp, color: Colors.white, size: 35,  /* Add More */),
+          child: Icon(Icons.favorite_outline_sharp, color: Colors.white, size: 35, ),
     );
   }
 }
@@ -346,15 +324,15 @@ class _BackButton extends StatelessWidget
   {
     return FloatingActionButton
     (
-          shape: RoundedRectangleBorder
-          (
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: Color.fromRGBO(33,40,61, 1))
+            side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
           ),
-          backgroundColor: Color.fromRGBO(29,35,53, 1),
+
+          backgroundColor: Color.fromARGB(255, 29, 35, 53),
           mini: false,
           onPressed: () {},
-          child: Icon(Icons.keyboard_arrow_left_sharp, color: Colors.white, size: 35, /* Add More */),
+          child: Icon(Icons.keyboard_arrow_left_sharp, color: Colors.white, size: 35, ),
     );
   }
 }
@@ -367,16 +345,14 @@ class _AddToCart extends StatelessWidget
     return FloatingActionButton.extended
     (
           onPressed: () {},
-          //icon: Icon(Icons.save),
 
+          backgroundColor: Color.fromARGB(255, 255, 59, 47),
           isExtended: true,
           label: Text("Add To Cart"),
           shape: RoundedRectangleBorder
           (
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(16),
           ),
     );
   }
-
-
 }

@@ -13,16 +13,8 @@ class ProductFeature extends StatelessWidget
   {
     return Container
     (
-      width: 58,
-      height: 58,
-     
-      // decoration: BoxDecoration
-      // (
-      //   color: Colors.grey[300], 
-      //   borderRadius: BorderRadius.all(Radius.circular(16), ),
-      // ),
-      
-      // padding: EdgeInsets.all(8),
+      width: 80,
+      height: 60,
       
       child: Column
       (
@@ -35,11 +27,15 @@ class ProductFeature extends StatelessWidget
           Text
           (
             '$value $units',
+            textAlign: TextAlign.justify,
+            
             style: TextStyle
             (
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 250, 250, 250),
+              fontFamily: 'Poppins',
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+              
             ),
           ), 
         ],
