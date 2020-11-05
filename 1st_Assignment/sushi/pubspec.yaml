@@ -49,6 +49,7 @@ flutter:
     - assets/icons/
     - assets/sushi_photo.PNG
     - assets/sushi_photo_nearest.png
+    - assets/sushi_counter.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -62,12 +63,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat-ExtraBold.ttf
-          weight: 800
-    
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Thin.ttf

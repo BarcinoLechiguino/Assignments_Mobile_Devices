@@ -27,8 +27,6 @@ class ProductFeature extends StatelessWidget
           Text
           (
             '$value $units',
-            textAlign: TextAlign.justify,
-            
             style: TextStyle
             (
               color: Color.fromARGB(255, 250, 250, 250),

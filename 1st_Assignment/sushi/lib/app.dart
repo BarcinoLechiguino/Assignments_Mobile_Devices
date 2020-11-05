@@ -14,10 +14,7 @@ class App extends StatelessWidget
 
       title: '1st Assignment',
       
-      theme: ThemeData
-      (
-        primarySwatch: Colors.red,
-      ),
+      theme: ThemeData(primarySwatch: Colors.red, ),
       
       home: SushiScreen(sushi: sake_roll)
     );
@@ -50,7 +47,7 @@ class Sushi
 final sake_roll = Sushi
 (
   name: 'Sake Roll',
-  color: Color.fromRGBO(24, 29, 45, 1),
+  color: Color.fromARGB(255, 24, 29, 45),
   price: 14.50,
 
   description: 'Sake is produced by a leavening process and converting starch into sugar. It may sound simple, but the entire process can take a few months.',
@@ -58,7 +55,7 @@ final sake_roll = Sushi
   features: 
   [
     Feature(icon: 'fire', value: 130, units: 'cal'),
-    Feature(icon: 'alarm_clock', value: 15, units: '-20 min'),
+    Feature(icon: 'alarm_clock', value: 15, units: '- 20 min'),
     Feature(icon: 'starry_eyes', value: 4.9, units: 'vote'),
     Feature(icon: 'weighting_machine', value: 350, units: 'g'),
   ],

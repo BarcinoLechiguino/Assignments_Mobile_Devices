@@ -17,48 +17,42 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
     return Provider<Sushi>.value( 
       value: sushi,
 
-      child: Scaffold
-      (
-        //appBar: AppBar(title: Text("Sushi")),
-
-        body: SafeArea
-        (
-          child: Stack
-          (
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
             children: 
             [
-              Column
-              (
+              Column(
                 children: 
                 [
-                  Expanded(flex: 3, child: _BottomPreview()),
+                  Expanded(flex: 1, child: _BottomPreview()),
                 ],
               ),
 
-              Column
-              (
+              Column(
                 children: 
-                [
-                  Expanded(flex: 7, child: _MiddlePreview()),
-                  //Expanded(flex: 1, child: Container()),
+                [ 
+                  Expanded(flex: 7, child: _MiddlePreview()),                  
+                  Expanded(flex: 1, child: Container()),
 
-                  Row
-                  (
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:
+                   children:
                     [
+                      //_Price(),
+                      //_AddToCart(),
+                      
                       Container(
-                        //alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(bottom: 10.0),
                         child: _Price(),
                       ),
 
                       Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
                         child: _AddToCart(),
                       ),
                     ],
                   ),
-                  
-                  Expanded(flex: 1, child: Container()),              
                 ],
               ),
 
@@ -149,6 +143,8 @@ class _SushiPreview extends StatelessWidget
             flex: 4, 
             child: _Photo()
           ),
+
+          _AmountCounter(),
         ],
       ),
     );
@@ -178,7 +174,7 @@ class _BottomPreview extends StatelessWidget
     return Container
     ( 
       decoration: BoxDecoration(
-        color: Color.fromRGBO(24,29,45,1),
+        color: Color.fromARGB(255, 24, 29, 45),
         //borderRadius: BorderRadius.only( bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30) ),
       ),
     );
@@ -297,6 +293,26 @@ class _Price extends StatelessWidget
 }
 
 //Buttons
+class _BackButton extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+    return FloatingActionButton
+    (
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
+          ),
+
+          backgroundColor: Color.fromARGB(255, 29, 35, 53),
+          mini: false,
+          onPressed: () {},
+          child: Icon(Icons.keyboard_arrow_left_sharp, color: Colors.white, size: 35, ),
+    );
+  }
+}
+
 class _LikeButton extends StatelessWidget 
 {
   @override
@@ -317,22 +333,60 @@ class _LikeButton extends StatelessWidget
   }
 }
 
-class _BackButton extends StatelessWidget
+class _AmountCounter extends StatelessWidget
 {
+  int count = 1;
+
   @override
   Widget build(BuildContext context)
-  {
-    return FloatingActionButton
-    (
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
-          ),
+  {    
+    return Row(
+       mainAxisAlignment: MainAxisAlignment.center,
 
-          backgroundColor: Color.fromARGB(255, 29, 35, 53),
-          mini: false,
-          onPressed: () {},
-          child: Icon(Icons.keyboard_arrow_left_sharp, color: Colors.white, size: 35, ),
+       children: 
+       [
+         FloatingActionButton(
+           shape: RoundedRectangleBorder( 
+              borderRadius: BorderRadius.circular(100),
+              side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
+            ),
+
+            backgroundColor: Color.fromARGB(255, 24, 29, 45),
+            mini: false,
+            child: Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 35, ),
+
+            onPressed: () {--count;},
+         ),
+
+         Container(
+           color: Color.fromARGB(255, 24, 29, 45),
+           margin: EdgeInsets.all(20.0),
+           child: Text(
+             '$count', 
+             style: TextStyle(
+               fontSize: 25.0,
+               color: Colors.white,
+               fontFamily: 'Poppins', 
+               fontWeight: FontWeight.w500,
+               ),
+
+               textAlign: TextAlign.center,
+            ),
+         ),
+
+         FloatingActionButton(
+           shape: RoundedRectangleBorder( 
+              borderRadius: BorderRadius.circular(100),
+              side: BorderSide(color: Color.fromARGB(255, 43, 50, 71))
+            ),
+
+            backgroundColor: Color.fromARGB(255, 24, 29, 45),
+            mini: false,
+            child: Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 35, ),
+
+            onPressed: () {++count;},
+         ),
+       ],
     );
   }
 }
@@ -354,5 +408,14 @@ class _AddToCart extends StatelessWidget
             borderRadius: BorderRadius.circular(16),
           ),
     );
+  }
+}
+
+class _PriceAndAddToCart extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+
   }
 }
