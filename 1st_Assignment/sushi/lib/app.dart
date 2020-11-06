@@ -35,7 +35,7 @@ class Sushi
 {
   final String        name;                           // Name of the Sushi.
   final Color         color;                          // Color of the background behind the Sushi.
-  final double        price;                          // Price of the Sushi.
+  final String        price;                          // Price of the Sushi.
   final String        description;                    // Description of the features of the Sushi.
   final String        photo;                          // Path to the image of the Sushi in the directory.
   final List<Feature> features;                       // A list containing the features of the Sushi.
@@ -48,7 +48,7 @@ final sake_roll = Sushi
 (
   name: 'Sake Roll',
   color: Color.fromARGB(255, 24, 29, 45),
-  price: 14.50,
+  price: "14,50",
 
   description: 'Sake is produced by a leavening process and converting starch into sugar. It may sound simple, but the entire process can take a few months.',
   

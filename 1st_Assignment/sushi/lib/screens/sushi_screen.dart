@@ -32,33 +32,33 @@ class SushiScreen extends StatelessWidget            // SushiScreen(), _Shopping
               Column(
                 children: 
                 [ 
-                  Expanded(flex: 7, child: _MiddlePreview()),                  
-                  Expanded(flex: 1, child: Container()),
+                  Expanded(flex: 9, child: _MiddlePreview()),   
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   children:
-                    [
-                      //_Price(),
-                      //_AddToCart(),
-                      
-                      Container(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: _Price(),
-                      ),
+                  Expanded(flex: 2,
 
-                      Container(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: _AddToCart(),
-                      ),
-                    ],
+                    child:Row(
+
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   
+                      children:
+                      [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                         child: _Price(),
+                        ),
+
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: _AddToCart(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
 
               Column
               (
-                
                 children: 
                 [
                   Expanded(flex: 1, child: Container(color: Color.fromARGB(255, 24, 29, 45))),
@@ -144,7 +144,11 @@ class _SushiPreview extends StatelessWidget
             child: _Photo()
           ),
 
-          _AmountCounter(),
+          Expanded
+          (
+            flex: 1, 
+            child: _AmountCounter(),
+          ),
         ],
       ),
     );
@@ -278,19 +282,7 @@ class _Description extends StatelessWidget
   }
 }
 
-class _Price extends StatelessWidget 
-{
-  @override
-  Widget build(BuildContext context) 
-  {
-    final Sushi sushi = Provider.of<Sushi>(context);
-    
-    return Text(
-      '\$${sushi.price}',
-      style: TextStyle(fontSize: 30.0, color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400, ),
-    );
-  }
-}
+
 
 //Buttons
 class _BackButton extends StatelessWidget
@@ -391,6 +383,21 @@ class _AmountCounter extends StatelessWidget
   }
 }
 
+//Price and add to cart
+class _Price extends StatelessWidget 
+{
+  @override
+  Widget build(BuildContext context) 
+  {
+    final Sushi sushi = Provider.of<Sushi>(context);
+    
+    return Text(
+      '\$${sushi.price}',
+      style: TextStyle(fontSize: 30.0, color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400, ),
+    );
+  }
+}
+
 class _AddToCart extends StatelessWidget
 {
   @override
@@ -411,11 +418,11 @@ class _AddToCart extends StatelessWidget
   }
 }
 
-class _PriceAndAddToCart extends StatelessWidget
-{
-  @override
-  Widget build(BuildContext context)
-  {
+// class _PriceAndAddToCart extends StatelessWidget
+// {
+//   @override
+//   Widget build(BuildContext context)
+//   {
 
-  }
-}
+//   }
+// }

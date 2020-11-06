@@ -22,20 +22,29 @@ class ProductFeature extends StatelessWidget
 
         children: 
         [
-          Image.asset('assets/icons/$icon.png'),
+          Align(
+            alignment: Alignment.topLeft,
+
+            child:Image.asset('assets/icons/$icon.png'),
+          ),
           
-          Text
-          (
-            '$value $units',
-            style: TextStyle
+          Align(
+
+            alignment: Alignment.bottomLeft,
+
+            child:Text
             (
-              color: Color.fromARGB(255, 250, 250, 250),
-              fontFamily: 'Poppins',
-              fontSize: 15,
-              fontWeight: FontWeight.w300,
+              '$value $units',
+              style: TextStyle
+             (
+                color: Color.fromARGB(255, 250, 250, 250),
+                fontFamily: 'Poppins',
+                fontSize: 15,
+                fontWeight: FontWeight.w300,
               
-            ),
-          ), 
+              ),
+            ), 
+          ),
         ],
       ),
     );
