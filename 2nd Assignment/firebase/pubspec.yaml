@@ -1,7 +1,7 @@
 name: firebase
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -10,18 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  cloud_firestore: ^0.12.10+2
+  cloud_firestore: ^0.14.4
+  cupertino_icons: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 flutter:
   uses-material-design: true
-
-        
-    
-    
-                                      
