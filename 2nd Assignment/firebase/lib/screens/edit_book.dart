@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase/Book/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase/screens/todo_list_screen.dart';
 
 class EditResult {
   
-  Book book; // null => cancellat
-  EditResult({this.book});
+  EditResult();
 }
 
 class EditCourtScreen extends StatefulWidget {
@@ -25,9 +23,9 @@ class _EditCourtScreenState extends State<EditCourtScreen> {
   void initState() {
    
     _courtUserController = TextEditingController(
-      text: FirebaseFirestore.instance.doc('to_dos/${this.widget.bookId }'),
+      text: "Hola" //FirebaseFirestore.instance.doc('to_dos/${this.widget.bookId }'),
     );
-    finished = widget.book.finished;
+    finished = true;
     
     super.initState();
   }
@@ -89,13 +87,7 @@ class _EditCourtScreenState extends State<EditCourtScreen> {
               onPressed: () {
                 Navigator.of(context).pop(
                   EditResult(
-                    book: Book(
-                      _courtUserController.text,
-                      'Puteta',
-                      1000,
-                      99,
-                      finished,
-                    ),
+                   
                   ),
                 );
               },
