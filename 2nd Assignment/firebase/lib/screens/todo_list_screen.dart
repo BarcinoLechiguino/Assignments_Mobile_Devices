@@ -35,7 +35,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
     });
   }
 
-  void _editCourt(final _bookId) {
+  void _editBook(final _bookId) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditCourtScreen(
@@ -88,7 +88,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
   }
 
   Widget _buildTodoListPage(QuerySnapshot snapshot) {
-    final todos = FirebaseFirestore.instance.collection('to_dos');
+    final todos = FirebaseFirestore.instance.collection('books');
     final docs = snapshot.docs;
     return Scaffold(
       backgroundColor: Colors.white12,
@@ -135,7 +135,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              order = 'Pages';
+                              order = 'Pages Read';
                             });
                             Navigator.pop(context);
                           })
@@ -181,7 +181,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
                     ),
                   ),
                   trailing: Text(
-                    item['Pages'].toString() +
+                    item['Pages Read'].toString() +
                         "/" +
                         item['Total Pages'].toString() +
                         " Pages",
@@ -190,6 +190,10 @@ class _TodoListScreenState extends State<TodoListScreen> {
                       color: Colors.white70,
                     ),
                   ),
+                  onTap: ()
+                  {
+                    _editBook(item.id);
+                  },
                   onLongPress: () {
                     todos.doc(item.id).delete();
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -228,7 +232,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
                       todos.add({
                         'Title': _controller.text,
                         'Author': "Default Author",
-                        'Pages': Random().nextInt(500),
+                        'Pages Read': Random().nextInt(500),
                         'Genre': "Educational",
                         'Total Pages': 500,
                       });
@@ -246,7 +250,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final books = FirebaseFirestore.instance.collection('to_dos');
+    final books = FirebaseFirestore.instance.collection('books');
     return StreamBuilder(
       stream: books.orderBy(order, descending: ascending).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
