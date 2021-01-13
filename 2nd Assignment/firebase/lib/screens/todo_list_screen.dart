@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/screens/edit_book.dart';
 import 'package:flutter/material.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
   _TodoListScreenState createState() => _TodoListScreenState();
 }
+
+
 
 class _TodoListScreenState extends State<TodoListScreen> {
   TextEditingController _controller;
@@ -29,6 +32,24 @@ class _TodoListScreenState extends State<TodoListScreen> {
   void switchOrder() {
     setState(() {
       ascending = !ascending;
+    });
+  }
+
+  void _editCourt(final _bookId) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => EditCourtScreen(
+          bookId: _bookId, //Get[index]
+        ),
+      ),
+    )
+        .then((editResult) {
+      if (editResult != null) {
+        setState(() {
+          final a = FirebaseFirestore.instance.doc(documentPath: "hey")
+           = editResult.book;
+        });
+      }
     });
   }
 
@@ -162,7 +183,8 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   trailing: Text(
                     item['Pages'].toString() +
                         "/" +
-                        item['Total Pages'].toString(),
+                        item['Total Pages'].toString() +
+                        " Pages",
                     style: TextStyle(
                       decoration: TextDecoration.none,
                       color: Colors.white70,
