@@ -78,6 +78,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
               }),
           IconButton(
             icon: Icon(Icons.format_list_numbered),
+            onPressed: () {},
           ),
         ],
       ),
@@ -165,7 +166,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 return ListTile(
                   tileColor: Colors.white12,
                   leading: IconButton(
-                      icon: Icon(Icons.image, color: Colors.white70)),
+                      icon: Icon(Icons.image, color: Colors.white70),
+                      onPressed: () {},
+                      ),
                   title: Text(
                     item['Title'],
                     style: TextStyle(
