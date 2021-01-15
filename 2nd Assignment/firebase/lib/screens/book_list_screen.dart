@@ -188,7 +188,6 @@ class _BookListScreenState extends State<BookListScreen> {
                   ),
                   onTap: ()
                   {
-                    //_editBook(item.id);
                     _editBook(index);
                   },
                   onLongPress: () 
