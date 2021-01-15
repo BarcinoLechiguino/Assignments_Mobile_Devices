@@ -15,6 +15,7 @@ class EditBookScreen extends StatefulWidget {
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
+  
    _EditBookScreenState( this.bookIndex );
 
   TextEditingController _bookController;

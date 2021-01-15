@@ -173,10 +173,7 @@ class _BookListScreenState extends State<BookListScreen> {
                 final item = docs[index];
                 return ListTile(
                   tileColor: Colors.white12,
-                  leading: IconButton(
-                    icon: Icon(Icons.image, color: Colors.white70),
-                    onPressed: () {},
-                  ),
+                  leading: Image.network(item['Cover URL'], scale: 0.2),
                   title: Text(
                     (item['Title']),
                     style: TextStyle(decoration: TextDecoration.none, color: Colors.white70, ),

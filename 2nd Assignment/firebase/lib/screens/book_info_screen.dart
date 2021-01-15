@@ -85,7 +85,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
         children:[
           Row(mainAxisAlignment: MainAxisAlignment.center,),
           
-          Image.network("https://images-na.ssl-images-amazon.com/images/I/51IRl5e5R9L._SX342_SY445_QL70_ML2_.jpg", scale: 1.5, ),
+          Image.network(book['Cover URL'], scale: 1.5, ),
           //Image.network(book["Cover URL"], scale: 1.5, ),
           
           Text("Pages: " + book["Pages Read"].toString() + "/" +  book["Total Pages"].toString(), style: TextStyle(color: Colors.white70)),
