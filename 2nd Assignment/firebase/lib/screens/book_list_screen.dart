@@ -33,12 +33,12 @@ class _BookListScreenState extends State<BookListScreen> {
 
   void _editBook(final _bookId) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => BookInfoScreen(/*bookId:*/ bookIndex: _bookId, /*Get[index]*/ ), ),
+      MaterialPageRoute(builder: (context) => BookInfoScreen(bookIndex: _bookId, /*Get[index]*/ ), ),
     ).then((editResult) 
       {
         if (editResult != null) 
         {
-          setState(() { /*final a = FirebaseFirestore.instance.doc(documentPath: "hey")*/ /*= editResult.book;*/ }); 
+          setState(() { }); 
         }
       }
     );

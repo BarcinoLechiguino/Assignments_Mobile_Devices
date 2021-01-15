@@ -7,7 +7,6 @@ class EditResult {
 }
 
 class BookInfoScreen extends StatefulWidget {
-  final String  bookId = "[NONE]";
   final int     bookIndex;
 
   //EditBookScreen( {this.bookId} );
@@ -18,8 +17,9 @@ class BookInfoScreen extends StatefulWidget {
 }
 
 class _BookInfoScreenState extends State<BookInfoScreen> {
+ 
   TextEditingController _bookController;
-  String                _bookId;
+
   int                   bookIndex;
   bool                  finished;
   DocumentSnapshot      book;
@@ -70,8 +70,6 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
   }
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
-    final books = FirebaseFirestore.instance.collection('books');
-    //final book = snapshot.docs[bookId];
     final docs = snapshot.docs;
     final book = docs[bookIndex];
 
@@ -102,7 +100,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         child: Icon(Icons.edit),
-        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(), ), ); }
+        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookIndex: bookIndex), ), ); }
       ),
     );
   }

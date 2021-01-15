@@ -6,15 +6,20 @@ class EditResult {
 }
 
 class EditBookScreen extends StatefulWidget {
-  EditBookScreen();
+
+   final int     bookIndex;
+
+  EditBookScreen({this.bookIndex});
   @override
-  _EditBookScreenState createState() => _EditBookScreenState();
+  _EditBookScreenState createState() => _EditBookScreenState(bookIndex);
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
+   _EditBookScreenState( this.bookIndex );
+
   TextEditingController _bookController;
-  bool                  finished;
-  DocumentSnapshot      book;
+  
+  int bookIndex;
 
   @override
   void initState() {
@@ -60,8 +65,8 @@ class _EditBookScreenState extends State<EditBookScreen> {
   }
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
-    final books = FirebaseFirestore.instance.collection('books');
     final docs = snapshot.docs;
+    final book = docs[bookIndex];
 
     return Scaffold(
       backgroundColor: Colors.white12,
