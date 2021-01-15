@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/screens/todo_list_screen.dart';
 
 class AddResult {
   AddResult();
@@ -75,7 +74,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         backgroundColor: Colors.indigo,
         child: Icon(Icons.done,),
         //child: Icon(Icons.dnd_forwardslash,),
-        onPressed: () {},
+        onPressed: () { Navigator.pop(context); },
       ),
     );
   }

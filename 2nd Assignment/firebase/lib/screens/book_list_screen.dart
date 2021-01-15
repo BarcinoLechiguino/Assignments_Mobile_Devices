@@ -1,17 +1,15 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/screens/edit_book_screen.dart';
+import 'package:firebase/screens/book_info_screen.dart';
 import 'package:firebase/screens/add_book_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TodoListScreen extends StatefulWidget {
+class BookListScreen extends StatefulWidget {
   @override
-  _TodoListScreenState createState() => _TodoListScreenState();
+  _BookListScreenState createState() => _BookListScreenState();
 }
 
-class _TodoListScreenState extends State<TodoListScreen> {
+class _BookListScreenState extends State<BookListScreen> {
   TextEditingController _controller;
 
   bool ascending  = false;
@@ -35,7 +33,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   void _editBook(final _bookId) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => EditBookScreen(/*bookId:*/ bookIndex: _bookId, /*Get[index]*/ ), ),
+      MaterialPageRoute(builder: (context) => BookInfoScreen(/*bookId:*/ bookIndex: _bookId, /*Get[index]*/ ), ),
     ).then((editResult) 
       {
         if (editResult != null) 
@@ -89,13 +87,15 @@ class _TodoListScreenState extends State<TodoListScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: Center(child: CircularProgressIndicator(), ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () { /*_addBook();*/ },
       ),
     );
   }
 
-  Widget _buildTodoListPage(QuerySnapshot snapshot) {
+  Widget _buildBookListPage(QuerySnapshot snapshot) {
     final todos = FirebaseFirestore.instance.collection('books');
     final docs = snapshot.docs;
     return Scaffold(
@@ -215,48 +215,14 @@ class _TodoListScreenState extends State<TodoListScreen> {
             elevation: 0.0,
             color: Colors.indigo,
             shape: CircleBorder(side: BorderSide.none),
-            child: Padding(
-              padding: EdgeInsets.all(12),
-              child : IconButton(
-                icon: Icon(Icons.add, color: Colors.white70, ),
-                iconSize: 24.0,
-                onPressed: () 
-                { 
-                  _addBook(); 
-                },
-              ),
-
-              /*child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(),
-                      cursorColor: Colors.white60,
-                      controller: _controller,
-                      style: TextStyle(color: Colors.white70, ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add, color: Colors.white70),
-                    onPressed: () 
-                    {
-                      todos.add({
-                        'Title': _controller.text,
-                        'Author': "Default Author",
-                        'Pages Read': Random().nextInt(500),
-                        'Genre': "Educational",
-                        'Total Pages': 500,
-                      });
-
-                      _controller.clear();
-                    },
-                  ),
-                ],
-              ),*/
-
-            ),
           ),
         ],
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.indigo,
+        child: Icon(Icons.add),
+        onPressed: () { _addBook(); },
       ),
     );
   }
@@ -273,7 +239,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
         switch (snapshot.connectionState) 
         {
           case ConnectionState.waiting:     { return _buildLoadingPage(); }
-          case ConnectionState.active:      { return _buildTodoListPage(snapshot.data); }
+          case ConnectionState.active:      { return _buildBookListPage(snapshot.data); }
           default:                          { return _buildErrorPage("unreachable!!!"); }
         }
       },

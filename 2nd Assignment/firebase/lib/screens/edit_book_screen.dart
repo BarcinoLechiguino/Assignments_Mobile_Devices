@@ -1,32 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/screens/todo_list_screen.dart';
-
-import 'package:firebase/screens/add_book_screen.dart';
 
 class EditResult {
   EditResult();
 }
 
 class EditBookScreen extends StatefulWidget {
-  final String  bookId = "[NONE]";
-  final int     bookIndex;
-
-  //EditBookScreen( {this.bookId} );
-  EditBookScreen( {this.bookIndex} );
-
+  EditBookScreen();
   @override
-  _EditBookScreenState createState() => _EditBookScreenState(bookIndex);
+  _EditBookScreenState createState() => _EditBookScreenState();
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
   TextEditingController _bookController;
-  String                _bookId;
-  int                   bookIndex;
   bool                  finished;
   DocumentSnapshot      book;
-
-  _EditBookScreenState( this.bookIndex );
 
   @override
   void initState() {
@@ -52,7 +40,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
     return Scaffold(
       backgroundColor: Colors.white12,
       appBar: AppBar(
-        title: Text('Book Info'),
+        title: Text('Edit Book'),
         backgroundColor: Colors.indigo,
         actions: [
           IconButton(
@@ -73,38 +61,20 @@ class _EditBookScreenState extends State<EditBookScreen> {
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
     final books = FirebaseFirestore.instance.collection('books');
-    //final book = snapshot.docs[bookId];
     final docs = snapshot.docs;
-    final book = docs[bookIndex];
 
     return Scaffold(
       backgroundColor: Colors.white12,
       appBar: AppBar(
-        title: Text('Book Info'),
-        backgroundColor: Colors.indigo,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children:[
-          Row(mainAxisAlignment: MainAxisAlignment.center,),
-          
-          Image.network("https://images-na.ssl-images-amazon.com/images/I/51IRl5e5R9L._SX342_SY445_QL70_ML2_.jpg", scale: 1.5, ),
-          //Image.network(book["Cover URL"], scale: 1.5, ),
-          
-          Text("Pages: " + book["Pages Read"].toString() + "/" +  book["Total Pages"].toString(), style: TextStyle(color: Colors.white70)),
-          Text(book["Title"], style: TextStyle(color: Colors.white70)),
-          Text(book["Author"], style: TextStyle(color: Colors.white70)),
-          Text(book["Genre"], style: TextStyle(color: Colors.white70)),
-
-          Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),)
-        ]
+        title: Text('Edit Book'),
+        backgroundColor: Colors.indigo 
       ),
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
-        child: Icon(Icons.edit),
-        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddBookScreen(), ), ); }
+        child: Icon(Icons.done,),
+        //child: Icon(Icons.dnd_forwardslash,),
+        onPressed: () { Navigator.pop(context);},
       ),
     );
   }
