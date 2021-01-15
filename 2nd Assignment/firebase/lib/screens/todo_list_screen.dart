@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/screens/edit_book.dart';
+import 'package:firebase/screens/edit_book_screen.dart';
+import 'package:firebase/screens/add_book_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TodoListScreen extends StatefulWidget {
@@ -9,13 +11,11 @@ class TodoListScreen extends StatefulWidget {
   _TodoListScreenState createState() => _TodoListScreenState();
 }
 
-
-
 class _TodoListScreenState extends State<TodoListScreen> {
   TextEditingController _controller;
 
-  bool ascending = false;
-  String order = 'Title';
+  bool ascending  = false;
+  String order    = 'Title';
  
   @override
   void initState() {
@@ -30,27 +30,33 @@ class _TodoListScreenState extends State<TodoListScreen> {
   }
 
   void switchOrder() {
-    setState(() {
-      ascending = !ascending;
-    });
+    setState(() { ascending = !ascending; } );
   }
 
   void _editBook(final _bookId) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => EditCourtScreen(
-          bookId: _bookId, //Get[index]
-        ),
-      ),
-    )
-        .then((editResult) {
-      if (editResult != null) {
-        setState(() {
-          //final a = FirebaseFirestore.instance.doc(documentPath: "hey")
-           //= editResult.book;
-        });
+      MaterialPageRoute(builder: (context) => EditBookScreen(/*bookId:*/ bookIndex: _bookId, /*Get[index]*/ ), ),
+    ).then((editResult) 
+      {
+        if (editResult != null) 
+        {
+          setState(() { /*final a = FirebaseFirestore.instance.doc(documentPath: "hey")*/ /*= editResult.book;*/ }); 
+        }
       }
-    });
+    );
+  }
+
+  void _addBook() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => AddBookScreen(), ),
+    ).then((addResult) 
+      {
+        if (addResult != null)
+        {
+          setState(() {});
+        }
+      }
+    );
   }
 
   Widget _buildErrorPage(String message) {
@@ -73,7 +79,8 @@ class _TodoListScreenState extends State<TodoListScreen> {
         actions: [
           IconButton(
               icon: Icon(Icons.arrow_drop_up),
-              onPressed: () {
+              onPressed: () 
+              {
                 switchOrder(); //This makes my eyes hurt
               }),
           IconButton(
@@ -98,106 +105,97 @@ class _TodoListScreenState extends State<TodoListScreen> {
         backgroundColor: Colors.indigo,
         actions: [
           IconButton(
-              icon: Icon(Icons.arrow_drop_up),
-              onPressed: () {
-                switchOrder(); //This makes my eyes hurt
-              }),
+            icon: Icon(Icons.arrow_drop_up),
+            onPressed: () 
+            {
+              switchOrder(); //This makes my eyes hurt
+            }
+          ),
           IconButton(
-              icon: Icon(Icons.format_list_numbered),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    backgroundColor: Color.fromRGBO(100, 100, 100, 1),
-                    title: Text("Sort by",
-                        style: TextStyle(
-                          color: Color.fromRGBO(200, 200, 200, 1),
-                        )),
-                    actions: [
-                      FlatButton(
-                          child: Text(
-                            "Alphabetical",
-                            style: TextStyle(
-                              color: Color.fromRGBO(200, 200, 200, 1),
-                            ),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              order = 'Title';
-                            });
-                            Navigator.pop(context);
-                          }),
-                      FlatButton(
-                          child: Text(
-                            "Pages read",
-                            style: TextStyle(
-                              color: Color.fromRGBO(200, 200, 200, 1),
-                            ),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              order = 'Pages Read';
-                            });
-                            Navigator.pop(context);
-                          })
-                    ],
+            icon: Icon(Icons.format_list_numbered),
+            onPressed: () 
+            {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  backgroundColor: Color.fromRGBO(100, 100, 100, 1),
+                  title: Text(
+                    ("Sort by"),
+                    style: TextStyle(color: Color.fromRGBO(200, 200, 200, 1), ),
                   ),
-                );
-              }
-              // onPressed: () {
-              //   final batch = FirebaseFirestore.instance.batch();
-              //   for (var item in docs) {
-              //     if (item['done']) {
-              //       batch.delete(todos.doc(item.id));
-              //     }
-              //   }
-              //   batch.commit();
-              // },
-              ),
+                  actions: [
+                    FlatButton(
+                      child: Text(
+                        ("Alphabetical"),
+                        style: TextStyle( color: Color.fromRGBO(200, 200, 200, 1), ),
+                      ),
+                      onPressed: () 
+                      {
+                        setState(() { order = 'Title'; } );
+                        Navigator.pop(context);
+                      }
+                    ),
+                    FlatButton(
+                      child: Text(
+                        ("Pages read"),
+                        style: TextStyle(color: Color.fromRGBO(200, 200, 200, 1), ),
+                      ),
+                      onPressed: () 
+                      {
+                        setState(() { order = 'Pages Read'; } );
+                        Navigator.pop(context);
+                      }
+                    ),
+                  ],
+                ),
+              );
+            }
+            // onPressed: () {
+            //   final batch = FirebaseFirestore.instance.batch();
+            //   for (var item in docs) {
+            //     if (item['done']) {
+            //       batch.delete(todos.doc(item.id));
+            //     }
+            //   }
+            //   batch.commit();
+            // },
+          ),
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: ListView.builder(
               itemCount: docs.length,
-              itemBuilder: (context, int index) {
+              itemBuilder: (context, int index) 
+              {
                 final item = docs[index];
                 return ListTile(
                   tileColor: Colors.white12,
                   leading: IconButton(
-                      icon: Icon(Icons.image, color: Colors.white70),
-                      onPressed: () {},
-                      ),
+                    icon: Icon(Icons.image, color: Colors.white70),
+                    onPressed: () {},
+                  ),
                   title: Text(
-                    item['Title'],
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Colors.white70,
-                    ),
+                    (item['Title']),
+                    style: TextStyle(decoration: TextDecoration.none, color: Colors.white70, ),
                   ),
                   subtitle: Text(
-                    item['Author'],
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Colors.white70,
-                    ),
+                    (item['Author']),
+                    style: TextStyle(decoration: TextDecoration.none, color: Colors.white70, ),
                   ),
                   trailing: Text(
-                    item['Pages Read'].toString() +
-                        "/" +
-                        item['Total Pages'].toString() +
-                        " Pages",
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Colors.white70,
-                    ),
+                    (item['Pages Read'].toString() + "/" + item['Total Pages'].toString() + " Pages"),
+                    style: TextStyle(decoration: TextDecoration.none, color: Colors.white70, ),
                   ),
                   onTap: ()
                   {
-                    _editBook(item.id);
+                    //_editBook(item.id);
+                    _editBook(index);
                   },
-                  onLongPress: () {
+                  onLongPress: () 
+                  {
                     todos.doc(item.id).delete();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -214,24 +212,34 @@ class _TodoListScreenState extends State<TodoListScreen> {
             ),
           ),
           Material(
-            elevation: 16,
-            color: Colors.white12,
+            elevation: 0.0,
+            color: Colors.indigo,
+            shape: CircleBorder(side: BorderSide.none),
             child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Row(
+              padding: EdgeInsets.all(12),
+              child : IconButton(
+                icon: Icon(Icons.add, color: Colors.white70, ),
+                iconSize: 24.0,
+                onPressed: () 
+                { 
+                  _addBook(); 
+                },
+              ),
+
+              /*child: Row(
                 children: [
                   Expanded(
                     child: TextField(
-                        decoration: InputDecoration(),
-                        cursorColor: Colors.white60,
-                        controller: _controller,
-                        style: TextStyle(
-                          color: Colors.white70,
-                        )),
+                      decoration: InputDecoration(),
+                      cursorColor: Colors.white60,
+                      controller: _controller,
+                      style: TextStyle(color: Colors.white70, ),
+                    ),
                   ),
                   IconButton(
                     icon: Icon(Icons.add, color: Colors.white70),
-                    onPressed: () {
+                    onPressed: () 
+                    {
                       todos.add({
                         'Title': _controller.text,
                         'Author': "Default Author",
@@ -239,11 +247,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
                         'Genre': "Educational",
                         'Total Pages': 500,
                       });
+
                       _controller.clear();
                     },
                   ),
                 ],
-              ),
+              ),*/
+
             ),
           ),
         ],
@@ -256,17 +266,15 @@ class _TodoListScreenState extends State<TodoListScreen> {
     final books = FirebaseFirestore.instance.collection('books');
     return StreamBuilder(
       stream: books.orderBy(order, descending: ascending).snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return _buildErrorPage(snapshot.error.toString());
-        }
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return _buildLoadingPage();
-          case ConnectionState.active:
-            return _buildTodoListPage(snapshot.data);
-          default: // ConnectionState.none // ConnectionState.done
-            return _buildErrorPage("unreachable!!!");
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) 
+      {
+        if (snapshot.hasError) { return _buildErrorPage(snapshot.error.toString()); }
+
+        switch (snapshot.connectionState) 
+        {
+          case ConnectionState.waiting:     { return _buildLoadingPage(); }
+          case ConnectionState.active:      { return _buildTodoListPage(snapshot.data); }
+          default:                          { return _buildErrorPage("unreachable!!!"); }
         }
       },
     );
