@@ -7,24 +7,21 @@ class EditResult {
 }
 
 class BookInfoScreen extends StatefulWidget {
-  final int     bookIndex;
+  final String bookId;
 
-  //EditBookScreen( {this.bookId} );
-  BookInfoScreen( {this.bookIndex} );
+  BookInfoScreen( {this.bookId} );
 
   @override
-  _BookInfoScreenState createState() => _BookInfoScreenState(bookIndex);
+  _BookInfoScreenState createState() => _BookInfoScreenState(bookId);
 }
 
 class _BookInfoScreenState extends State<BookInfoScreen> {
  
   TextEditingController _bookController;
+  String bookId;
 
-  int                   bookIndex;
-  bool                  finished;
-  DocumentSnapshot      book;
 
-  _BookInfoScreenState( this.bookIndex );
+  _BookInfoScreenState( this.bookId );
 
   @override
   void initState() {
@@ -71,7 +68,16 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
     final docs = snapshot.docs;
-    final book = docs[bookIndex];
+    QueryDocumentSnapshot book = docs[0];
+
+    for(int i = 0; i < docs.length;i++)
+    {
+      if(docs[i].id == bookId)
+      {
+        book = docs[i];
+        break;
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white12,
@@ -86,12 +92,11 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
           Row(mainAxisAlignment: MainAxisAlignment.center,),
           
           Image.network(book['Cover URL'], scale: 1.5, ),
-          //Image.network(book["Cover URL"], scale: 1.5, ),
           
           Text("Pages: " + book["Pages Read"].toString() + "/" +  book["Total Pages"].toString(), style: TextStyle(color: Colors.white70)),
-          Text(book["Title"], style: TextStyle(color: Colors.white70)),
-          Text(book["Author"], style: TextStyle(color: Colors.white70)),
-          Text(book["Genre"], style: TextStyle(color: Colors.white70)),
+          Text("Title: " + book["Title"], style: TextStyle(color: Colors.white70)),
+          Text("Author: " + book["Author"], style: TextStyle(color: Colors.white70)),
+          Text("Genre: " + book["Genre"], style: TextStyle(color: Colors.white70)),
 
           Padding(padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),)
         ]
@@ -100,7 +105,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         child: Icon(Icons.edit),
-        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookIndex: bookIndex, book:book), ), ); }
+        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookId:bookId), ), ); }
       ),
     );
   }

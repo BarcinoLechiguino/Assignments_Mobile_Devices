@@ -7,18 +7,18 @@ class EditResult {
 
 class EditBookScreen extends StatefulWidget {
   final int bookIndex;
+  final String bookId;
 
-  final QueryDocumentSnapshot book;
-
-  EditBookScreen({this.bookIndex, this.book});
+  EditBookScreen({this.bookIndex, this.bookId});
   @override
-  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, book);
+  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, bookId);
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
   int bookIndex;
+  String bookId;
   QueryDocumentSnapshot book;
-  _EditBookScreenState(this.bookIndex, this.book);
+  _EditBookScreenState(this.bookIndex, this.bookId);
 
   TextEditingController _titleController;
   TextEditingController _authorController;
@@ -95,7 +95,17 @@ class _EditBookScreenState extends State<EditBookScreen> {
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
     final docs = snapshot.docs;
-    final book = docs[bookIndex];
+
+   QueryDocumentSnapshot book = docs[bookIndex];
+
+    for(int i = 0; i< docs.length;i++)
+    {
+      if(docs[i].id == bookId)
+      {
+        book = docs[i];
+        break;
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white12,
@@ -187,12 +197,17 @@ class _EditBookScreenState extends State<EditBookScreen> {
         ),
         //child: Icon(Icons.dnd_forwardslash,),
         onPressed: () {
+          if(int.parse(_readController.text) > int.parse(_totalController.text))
+          {
+            _readController.text = _totalController.text;
+          }
+
           FirebaseFirestore.instance.collection('books').doc(book.id).update({
             'Title': _titleController.text,
             'Author': _authorController.text,
             'Genre': _genreController.text,
             'Pages Read': int.parse(_readController.text),
-            'Total Pages': int.parse(_readController.text),
+            'Total Pages': int.parse(_totalController.text),
             'Cover URL': _coverController.text,
           });
 

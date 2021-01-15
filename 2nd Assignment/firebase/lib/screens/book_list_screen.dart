@@ -33,7 +33,7 @@ class _BookListScreenState extends State<BookListScreen> {
 
   void _editBook(final _bookId) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => BookInfoScreen(bookIndex: _bookId, /*Get[index]*/ ), ),
+      MaterialPageRoute(builder: (context) => BookInfoScreen(bookId:_bookId ), ),
     ).then((editResult) 
       {
         if (editResult != null) 
@@ -188,7 +188,7 @@ class _BookListScreenState extends State<BookListScreen> {
                   ),
                   onTap: ()
                   {
-                    _editBook(index);
+                    _editBook(item.id);
                   },
                   onLongPress: () 
                   {
