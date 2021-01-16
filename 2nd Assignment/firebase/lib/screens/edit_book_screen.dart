@@ -114,82 +114,98 @@ class _EditBookScreenState extends State<EditBookScreen> {
         title: Text('Edit Book'),
         backgroundColor: Colors.indigo,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _titleController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Title"
-                
+     body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _titleController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Title",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          ),
-           Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _authorController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Author"
-                
+              Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _authorController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Author",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          ),
-           Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _genreController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Genre"
-                
+             Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _genreController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Genre",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          ),
-           Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _readController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Pages Read"
-                
+             Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _readController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Pages Read",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          ),
-          Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _totalController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Total Pages"
-                
+            Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _totalController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Total",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          ),
-           Container(
-            //decoration: BoxDecoration(color: Color.fromRGBO(100,100, 100, 1)),
-            child: TextField(
-              controller: _coverController,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(), 
-                labelText: "Cover URL"
-                
+             Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              child: TextField(
+                controller: _coverController,
+                style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
+                  labelText: "Cover URL",
+                  labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
+                  
+                ),
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,

@@ -135,6 +135,17 @@ class _BookListScreenState extends State<BookListScreen> {
                         Navigator.pop(context);
                       }
                     ),
+                     FlatButton(
+                      child: Text(
+                        ("Author"),
+                        style: TextStyle(color: Color.fromRGBO(200, 200, 200, 1), ),
+                      ),
+                      onPressed: () 
+                      {
+                        setState(() { order = 'Author'; } );
+                        Navigator.pop(context);
+                      }
+                    ),
                     FlatButton(
                       child: Text(
                         ("Pages read"),
@@ -146,19 +157,32 @@ class _BookListScreenState extends State<BookListScreen> {
                         Navigator.pop(context);
                       }
                     ),
+                     FlatButton(
+                      child: Text(
+                        ("Total Pages"),
+                        style: TextStyle(color: Color.fromRGBO(200, 200, 200, 1), ),
+                      ),
+                      onPressed: () 
+                      {
+                        setState(() { order = 'Total Pages'; } );
+                        Navigator.pop(context);
+                      }
+                    ),
+                    FlatButton(
+                      child: Text(
+                        ("Genre"),
+                        style: TextStyle(color: Color.fromRGBO(200, 200, 200, 1), ),
+                      ),
+                      onPressed: () 
+                      {
+                        setState(() { order = 'Genre'; } );
+                        Navigator.pop(context);
+                      }
+                    ),
                   ],
                 ),
               );
             }
-            // onPressed: () {
-            //   final batch = FirebaseFirestore.instance.batch();
-            //   for (var item in docs) {
-            //     if (item['done']) {
-            //       batch.delete(todos.doc(item.id));
-            //     }
-            //   }
-            //   batch.commit();
-            // },
           ),
         ],
       ),
