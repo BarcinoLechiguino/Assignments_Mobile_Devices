@@ -105,7 +105,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         child: Icon(Icons.edit),
-        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookId:bookId), ), ); }
+        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookId:bookId,book:book), ), ); }
       ),
     );
   }

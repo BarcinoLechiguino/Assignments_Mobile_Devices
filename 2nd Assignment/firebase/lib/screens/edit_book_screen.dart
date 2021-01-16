@@ -8,17 +8,17 @@ class EditResult {
 class EditBookScreen extends StatefulWidget {
   final int bookIndex;
   final String bookId;
-
-  EditBookScreen({this.bookIndex, this.bookId});
+  final QueryDocumentSnapshot book;
+  EditBookScreen({this.bookIndex, this.bookId,this.book});
   @override
-  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, bookId);
+  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, bookId,book);
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
   int bookIndex;
   String bookId;
   QueryDocumentSnapshot book;
-  _EditBookScreenState(this.bookIndex, this.bookId);
+  _EditBookScreenState(this.bookIndex, this.bookId,this.book);
 
   TextEditingController _titleController;
   TextEditingController _authorController;
@@ -28,6 +28,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
   TextEditingController _coverController;
   @override
   void initState() {
+    
     _titleController = TextEditingController(
       text: book['Title'],
     );
