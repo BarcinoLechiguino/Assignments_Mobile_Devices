@@ -9,16 +9,16 @@ class EditBookScreen extends StatefulWidget {
   final int bookIndex;
   final String bookId;
   final QueryDocumentSnapshot book;
-  EditBookScreen({this.bookIndex, this.bookId,this.book});
+  EditBookScreen({this.bookIndex, this.bookId, this.book});
   @override
-  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, bookId,book);
+  _EditBookScreenState createState() => _EditBookScreenState(bookIndex, bookId, book);
 }
 
 class _EditBookScreenState extends State<EditBookScreen> {
   int bookIndex;
   String bookId;
   QueryDocumentSnapshot book;
-  _EditBookScreenState(this.bookIndex, this.bookId,this.book);
+  _EditBookScreenState(this.bookIndex, this.bookId, this.book);
 
   TextEditingController _titleController;
   TextEditingController _authorController;

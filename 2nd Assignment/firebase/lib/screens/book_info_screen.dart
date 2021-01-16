@@ -68,6 +68,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
 
   Widget _buildEditBookPage(QuerySnapshot snapshot) {
     final docs = snapshot.docs;
+    int bookIndex = 0;
     QueryDocumentSnapshot book = docs[0];
 
     for(int i = 0; i < docs.length;i++)
@@ -75,6 +76,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
       if(docs[i].id == bookId)
       {
         book = docs[i];
+        bookIndex = i;
         break;
       }
     }
@@ -105,7 +107,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.indigo,
         child: Icon(Icons.edit),
-        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookId:bookId,book:book), ), ); }
+        onPressed: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditBookScreen(bookIndex: bookIndex, bookId:bookId, book:book), ), ); }
       ),
     );
   }
