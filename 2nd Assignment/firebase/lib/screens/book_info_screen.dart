@@ -35,12 +35,16 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
     super.dispose();
   }
 
+  Widget _BookCoverImage(bool valid) {
+    return (valid) ? Image.network(book['Cover URL'], scale: 1.5, width: 150) : Icon(Icons.book, size: 150, color: Colors.white70);
+  }
+
   Widget _buildErrorPage(String message) {
     return Scaffold(
       body: Center(
         child: Text(
           message,
-          style: TextStyle(color: Colors.red), /**/
+          style: TextStyle(color: Colors.red),
         ),
       ),
     );
@@ -100,7 +104,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)),
-                  Image.network(book['Cover URL'], scale: 1.5, width: 150),
+                  _BookCoverImage((book['Cover URL'].toString() != "[NONE]")),
                   Padding(padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -141,13 +145,9 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                  book["Pages Read"].toString() +
-                                      "/" +
-                                      book["Total Pages"].toString(),
+                                  book["Pages Read"].toString() + "/" + book["Total Pages"].toString(),
                                   style: TextStyle(
-                                    color: (!completed)
-                                        ? Colors.white
-                                        : Colors.green,
+                                    color: (!completed) ? Colors.white : Colors.green,
                                     fontSize: 20,
                                   )),
                               Container(width: 20),
@@ -157,52 +157,50 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                                 child: Icon(Icons.edit, color: Colors.white),
                                 onPressed: () {
                                   showDialog(
-                                      context: context,
-                                      builder: (_) => AlertDialog(
-                                            backgroundColor: Color.fromRGBO(
-                                                100, 100, 100, 1),
-                                            title: Text(
-                                              ("Pages Read"),
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    200, 200, 200, 1),
-                                              ),
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      backgroundColor: Color.fromRGBO(50, 50, 50, 1),
+                                      title: Text(
+                                        ("Pages Read"),
+                                        style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), ),
+                                      ),
+                                      actions: [
+                                        Container(
+                                          width: 300,
+                                          child: TextField(
+                                            controller: _pagesController,
+                                            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), ),
+                                            textAlign: TextAlign.center,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5)), ),
+                                              labelText: "",
+                                              labelStyle: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), ),
                                             ),
-                                            actions: [
-                                              Container(
-                                                width: 300,
-                                                child: TextField(
-                                                  controller: _pagesController,
-                                                  style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          255, 255, 255, 1)),
-                                                  textAlign: TextAlign.center,
-                                                  decoration: InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5))),
-                                                    labelText: "Cover URL",
-                                                    labelStyle: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            255, 255, 255, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                              FlatButton(
-                                                onPressed: () {
-                                                  FirebaseFirestore.instance
-                                                      .collection('books')
-                                                      .doc(book.id)
-                                                      .update({
-                                                    'Pages Read': int.parse(_pagesController.text),
-                                                  });
-                                                },
-                                                child: Icon(Icons.save),
-                                              ),
-                                            ],
-                                          ));
+                                          ),
+                                        ),
+
+                                        Container(
+                                          height: 10,
+                                        ),
+
+                                        FlatButton(
+                                          color: Colors.indigo,
+                                          onPressed: () {
+                                            if (int.parse(_pagesController.text) > book["Total Pages"])
+                                            {
+                                              _pagesController.text = book["Total Pages"].toString();
+                                            }
+
+                                            FirebaseFirestore.instance.collection('books').doc(book.id).update(
+                                              {
+                                                'Pages Read': int.parse(_pagesController.text),
+                                              }
+                                            );
+                                          },
+                                          child: Icon(Icons.save, color: Colors.white),
+                                        ),
+                                      ],
+                                    ));
                                 },
                               )
                             ]),
@@ -215,11 +213,10 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                           semanticsLabel: "% Read",
                         ),
                         Container(height: 10),
-                        Text((!completed) ? "In Progress" : "Completed!",
-                            style: TextStyle(
-                                color: (!completed)
-                                    ? Colors.white
-                                    : Colors.green)),
+                        Text(
+                          (!completed) ? "In Progress" : "Completed!",
+                          style: TextStyle(color: (!completed) ? Colors.white : Colors.green),
+                          ),
                       ],
                     ),
                   ),

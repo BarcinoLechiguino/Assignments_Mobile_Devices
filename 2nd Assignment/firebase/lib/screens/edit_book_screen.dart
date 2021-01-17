@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class EditResult {
   EditResult();
@@ -61,6 +62,27 @@ class _EditBookScreenState extends State<EditBookScreen> {
     super.dispose();
   }
 
+  bool _URLIsValid(String url) {
+    if (url.contains("https://"))
+    {
+      url = url.substring(8);
+    }
+    else if (url.contains("http://"))
+    {
+      url = url.substring(7);
+    }
+    else if (url.contains("https:"))
+    {
+      url = url.substring(6);
+    }
+    else if (url.contains("http:"))
+    {
+      url = url.substring(5);
+    }
+
+    return (Uri.parse(url).isAbsolute); 
+  }
+
   Widget _buildErrorPage(String message) {
     return Scaffold(
       body: Center(
@@ -115,7 +137,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
         backgroundColor: Colors.indigo,
       ),
      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +152,6 @@ class _EditBookScreenState extends State<EditBookScreen> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
                   labelText: "Title",
                   labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
-                  
                 ),
               ),
             ),
@@ -177,7 +198,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
               ),
             ),
             Container(
-              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1),borderRadius: BorderRadius.all(Radius.circular(5)) ),
+              decoration: BoxDecoration(color: Color.fromRGBO(50,50, 50, 1), borderRadius: BorderRadius.all(Radius.circular(5)) ),
               child: TextField(
                 controller: _totalController,
                 style: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
@@ -217,6 +238,11 @@ class _EditBookScreenState extends State<EditBookScreen> {
           if(int.parse(_readController.text) > int.parse(_totalController.text))
           {
             _readController.text = _totalController.text;
+          }
+
+          if (!_URLIsValid(_coverController.text)) 
+          {
+            _coverController.text = "[NONE]";
           }
 
           FirebaseFirestore.instance.collection('books').doc(book.id).update({

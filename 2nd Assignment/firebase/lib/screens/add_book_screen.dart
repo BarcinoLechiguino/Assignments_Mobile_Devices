@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class EditResult {
   EditResult();
@@ -39,7 +40,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
       text:"100",
     );
     _coverController = TextEditingController(
-      text: "https://www.angeldelsoto.es/wp-content/uploads/leather-book-preview.png",
+      text: "[NONE]",
     );
     super.initState();
   }
@@ -53,6 +54,27 @@ class _AddBookScreenState extends State<AddBookScreen> {
     _totalController.dispose();
     _coverController.dispose();
     super.dispose();
+  }
+
+  bool _URLIsValid(String url) {
+    if (url.contains("https://"))
+    {
+      url = url.substring(8);
+    }
+    else if (url.contains("http://"))
+    {
+      url = url.substring(7);
+    }
+    else if (url.contains("https:"))
+    {
+      url = url.substring(6);
+    }
+    else if (url.contains("http:"))
+    {
+      url = url.substring(5);
+    }
+
+    return (Uri.parse(url).isAbsolute); 
   }
 
   Widget _buildErrorPage(String message) {
@@ -96,7 +118,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         backgroundColor: Colors.indigo,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +133,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))), 
                   labelText: "Title",
                   labelStyle: TextStyle(color: Color.fromRGBO(255, 255,255, 1)),
-                  
+
                 ),
               ),
             ),
@@ -200,7 +222,12 @@ class _AddBookScreenState extends State<AddBookScreen> {
           {
             _readController.text = _totalController.text;
           }
-          
+
+          if (!_URLIsValid(_coverController.text)) 
+          {
+            _coverController.text = "[NONE]";
+          }
+
           FirebaseFirestore.instance.collection('books').add({
             'Title': _titleController.text,
             'Author': _authorController.text,

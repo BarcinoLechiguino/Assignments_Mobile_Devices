@@ -57,6 +57,10 @@ class _BookListScreenState extends State<BookListScreen> {
     );
   }
 
+  Widget _BookCoverImage(String url) {
+    return (url != "[NONE]") ? Image.network(url, scale: 0.2, width: 50) : Icon(Icons.book, size: 50, color: Colors.white70);
+  }
+
   Widget _buildErrorPage(String message) {
     return Scaffold(
       body: Center(
@@ -197,7 +201,7 @@ class _BookListScreenState extends State<BookListScreen> {
                 final item = docs[index];
                 return ListTile(
                   tileColor: Colors.white12,
-                  leading: Image.network(item['Cover URL'], scale: 0.2),
+                  leading: _BookCoverImage(item["Cover URL"].toString()),
                   title: Text(
                     (item['Title']),
                     style: TextStyle(decoration: TextDecoration.none, color: Colors.white70, ),
