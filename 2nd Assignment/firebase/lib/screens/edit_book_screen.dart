@@ -240,10 +240,10 @@ class _EditBookScreenState extends State<EditBookScreen> {
             _readController.text = _totalController.text;
           }
 
-          if (!_URLIsValid(_coverController.text)) 
+          /*if (!_URLIsValid(_coverController.text)) 
           {
             _coverController.text = "[NONE]";
-          }
+          }*/
 
           FirebaseFirestore.instance.collection('books').doc(book.id).update({
             'Title': _titleController.text,

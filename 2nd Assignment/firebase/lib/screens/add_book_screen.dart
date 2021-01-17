@@ -223,10 +223,10 @@ class _AddBookScreenState extends State<AddBookScreen> {
             _readController.text = _totalController.text;
           }
 
-          if (!_URLIsValid(_coverController.text)) 
+          /*if (!_URLIsValid(_coverController.text)) 
           {
             _coverController.text = "[NONE]";
-          }
+          }*/
 
           FirebaseFirestore.instance.collection('books').add({
             'Title': _titleController.text,

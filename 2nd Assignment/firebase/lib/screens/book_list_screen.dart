@@ -58,7 +58,7 @@ class _BookListScreenState extends State<BookListScreen> {
   }
 
   Widget _BookCoverImage(String url) {
-    return (url != "[NONE]") ? Image.network(url, scale: 0.2, width: 50) : Icon(Icons.book, size: 50, color: Colors.white70);
+    return (url != "[NONE]" && url != "") ? Image.network(url, scale: 0.2, width: 50) : Icon(Icons.book, size: 50, color: Colors.white70);
   }
 
   Widget _buildErrorPage(String message) {
