@@ -72,6 +72,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
     final docs = snapshot.docs;
     int bookIndex = 0;
     QueryDocumentSnapshot book = docs[0];
+    bool completed = false;
 
     for (int i = 0; i < docs.length; i++) {
       if (docs[i].id == bookId) {
@@ -80,6 +81,8 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
         break;
       }
     }
+
+    completed = (book["Pages Read"] == book["Total Pages"]);
 
     return Scaffold(
       backgroundColor: Colors.white12,
@@ -118,29 +121,46 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                     ],
                   ),
                 ],
-
               ),
-             
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      (!completed) ? "In Progress": "Completed!", 
+                      style: TextStyle(color: (!completed) ? Colors.white : Colors.green)
+                    ),
+
+                    LinearProgressIndicator(
+                      backgroundColor: Colors.white12,
+                      valueColor: new AlwaysStoppedAnimation<Color>((!completed) ? Colors.indigo : Colors.green),
+                      value: book["Pages Read"] / book["Total Pages"],
+                      semanticsLabel: "% Read",
+                      //value: book["Pages Read"],
+                    ),
+                  ],
+                ),
+              ),
+              
               Padding(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0)),
               Container(
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(50, 50, 50, 1),
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Column(children: [
-
-                 
                   Text(
-                    
-                    "Pages: " +
-                      book["Pages Read"].toString() +
-                      "/" +
-                      book["Total Pages"].toString(),
-                      style: TextStyle(color: Colors.white70)),
-                  Text("Genre: " + book["Genre"],
-                      style: TextStyle(color: Colors.white70)),
+                    ("Pages: " + book["Pages Read"].toString() + "/" + book["Total Pages"].toString()),
+                    style: TextStyle(color: Colors.white70)
+                  ),
+                  Text(
+                    ("Genre: " + book["Genre"]),
+                    style: TextStyle(color: Colors.white70)
+                  ),
+
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 80.0),
-                  )
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 328.0),
+                  ),
                 ]),
               ),
             ]),
