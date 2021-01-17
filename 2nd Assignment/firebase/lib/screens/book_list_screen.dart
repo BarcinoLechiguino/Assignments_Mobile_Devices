@@ -31,9 +31,9 @@ class _BookListScreenState extends State<BookListScreen> {
     setState(() { ascending = !ascending; } );
   }
 
-  void _editBook(final _bookId) {
+  void _editBook(final _bookId,final book) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => BookInfoScreen(bookId:_bookId ), ),
+      MaterialPageRoute(builder: (context) => BookInfoScreen(bookId:_bookId,book: book ), ),
     ).then((editResult) 
       {
         if (editResult != null) 
@@ -126,7 +126,7 @@ class _BookListScreenState extends State<BookListScreen> {
                   actions: [
                     FlatButton(
                       child: Text(
-                        ("Alphabetical"),
+                        ("Title"),
                         style: TextStyle( color: Color.fromRGBO(200, 200, 200, 1), ),
                       ),
                       onPressed: () 
@@ -212,7 +212,7 @@ class _BookListScreenState extends State<BookListScreen> {
                   ),
                   onTap: ()
                   {
-                    _editBook(item.id);
+                    _editBook(item.id,item);
                   },
                   onLongPress: () 
                   {

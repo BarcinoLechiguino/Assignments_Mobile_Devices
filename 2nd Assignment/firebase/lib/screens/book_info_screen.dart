@@ -8,30 +8,30 @@ class EditResult {
 
 class BookInfoScreen extends StatefulWidget {
   final String bookId;
-
-  BookInfoScreen({this.bookId});
+  final QueryDocumentSnapshot book;
+  BookInfoScreen({this.bookId, this.book});
 
   @override
-  _BookInfoScreenState createState() => _BookInfoScreenState(bookId);
+  _BookInfoScreenState createState() => _BookInfoScreenState(bookId, book);
 }
 
 class _BookInfoScreenState extends State<BookInfoScreen> {
-  TextEditingController _bookController;
+  TextEditingController _pagesController;
   String bookId;
-
-  _BookInfoScreenState(this.bookId);
+  final QueryDocumentSnapshot book;
+  _BookInfoScreenState(this.bookId, this.book);
 
   @override
   void initState() {
-    _bookController = TextEditingController(
-      text: "hola",
+    _pagesController = TextEditingController(
+      text: book['Pages Read'].toString(),
     );
     super.initState();
   }
 
   @override
   void dispose() {
-    _bookController.dispose();
+    _pagesController.dispose();
     super.dispose();
   }
 
@@ -97,7 +97,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
             children: [
               Padding(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0)),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start, 
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)),
                   Image.network(book['Cover URL'], scale: 1.5, width: 150),
@@ -106,58 +106,129 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container( 
+                      Container(
                         width: 200,
                         child: Text(book["Title"],
-                          style: TextStyle(color: Colors.white70,fontSize: 20,)
-                          ),
-                        ),
-                      Container(height:10,),
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 20,
+                            )),
+                      ),
+                      Container(
+                        height: 10,
+                      ),
                       Container(
                         width: 200,
                         child: Text(book["Author"],
-                        style: TextStyle(color: Colors.white70)),
+                            style: TextStyle(color: Colors.white70)),
                       ),
                     ],
                   ),
                 ],
               ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text(
-                      (!completed) ? "In Progress": "Completed!", 
-                      style: TextStyle(color: (!completed) ? Colors.white : Colors.green)
-                    ),
-
-                    LinearProgressIndicator(
-                      backgroundColor: Colors.white12,
-                      valueColor: new AlwaysStoppedAnimation<Color>((!completed) ? Colors.indigo : Colors.green),
-                      value: book["Pages Read"] / book["Total Pages"],
-                      semanticsLabel: "% Read",
-                      //value: book["Pages Read"],
-                    ),
-                  ],
-                ),
-              ),
-              
               Padding(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0)),
               Container(
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(50, 50, 50, 1),
+                    color: Color.fromRGBO(37, 37, 37, 1),
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 child: Column(children: [
-                  Text(
-                    ("Pages: " + book["Pages Read"].toString() + "/" + book["Total Pages"].toString()),
-                    style: TextStyle(color: Colors.white70)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(height: 10),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                  book["Pages Read"].toString() +
+                                      "/" +
+                                      book["Total Pages"].toString(),
+                                  style: TextStyle(
+                                    color: (!completed)
+                                        ? Colors.white
+                                        : Colors.green,
+                                    fontSize: 20,
+                                  )),
+                              Container(width: 20),
+                              FlatButton(
+                                color: Colors.indigo,
+                                minWidth: 30,
+                                child: Icon(Icons.edit, color: Colors.white),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                            backgroundColor: Color.fromRGBO(
+                                                100, 100, 100, 1),
+                                            title: Text(
+                                              ("Pages Read"),
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    200, 200, 200, 1),
+                                              ),
+                                            ),
+                                            actions: [
+                                              Container(
+                                                width: 300,
+                                                child: TextField(
+                                                  controller: _pagesController,
+                                                  style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          255, 255, 255, 1)),
+                                                  textAlign: TextAlign.center,
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    5))),
+                                                    labelText: "Cover URL",
+                                                    labelStyle: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            255, 255, 255, 1)),
+                                                  ),
+                                                ),
+                                              ),
+                                              FlatButton(
+                                                onPressed: () {
+                                                  FirebaseFirestore.instance
+                                                      .collection('books')
+                                                      .doc(book.id)
+                                                      .update({
+                                                    'Pages Read': int.parse(_pagesController.text),
+                                                  });
+                                                },
+                                                child: Icon(Icons.save),
+                                              ),
+                                            ],
+                                          ));
+                                },
+                              )
+                            ]),
+                        Container(height: 10),
+                        LinearProgressIndicator(
+                          backgroundColor: Colors.white12,
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                              (!completed) ? Colors.indigo : Colors.green),
+                          value: book["Pages Read"] / book["Total Pages"],
+                          semanticsLabel: "% Read",
+                        ),
+                        Container(height: 10),
+                        Text((!completed) ? "In Progress" : "Completed!",
+                            style: TextStyle(
+                                color: (!completed)
+                                    ? Colors.white
+                                    : Colors.green)),
+                      ],
+                    ),
                   ),
-                  Text(
-                    ("Genre: " + book["Genre"]),
-                    style: TextStyle(color: Colors.white70)
-                  ),
-
+                  Container(height: 10),
+                  Text(("Genre: " + book["Genre"]),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      )),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 328.0),
                   ),
