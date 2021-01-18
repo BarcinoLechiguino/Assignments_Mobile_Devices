@@ -86,10 +86,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
   Widget _buildErrorPage(String message) {
     return Scaffold(
       body: Center(
-        child: Text(
-          message,
-          style: TextStyle(color: Colors.red), /**/
-        ),
+        child: Text(message, style: TextStyle(color: Colors.red), /**/),
       ),
     );
   }

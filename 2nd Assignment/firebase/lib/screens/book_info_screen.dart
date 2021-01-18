@@ -185,6 +185,7 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
 
                                         FlatButton(
                                           color: Colors.indigo,
+                                          child: Icon(Icons.save, color: Colors.white),
                                           onPressed: () {
                                             if (int.parse(_pagesController.text) > book["Total Pages"])
                                             {
@@ -196,8 +197,9 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                                                 'Pages Read': int.parse(_pagesController.text),
                                               }
                                             );
+
+                                            Navigator.pop(context);
                                           },
-                                          child: Icon(Icons.save, color: Colors.white),
                                         ),
                                       ],
                                     ));
@@ -208,9 +210,9 @@ class _BookInfoScreenState extends State<BookInfoScreen> {
                         LinearProgressIndicator(
                           backgroundColor: Colors.white12,
                           valueColor: new AlwaysStoppedAnimation<Color>(
-                              (!completed) ? Colors.indigo : Colors.green),
-                          value: book["Pages Read"] / book["Total Pages"],
-                          semanticsLabel: "% Read",
+                            (!completed) ? Colors.indigo : Colors.green),
+                            value: book["Pages Read"] / book["Total Pages"],
+                            semanticsLabel: "% Read",
                         ),
                         Container(height: 10),
                         Text(
